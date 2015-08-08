@@ -18,6 +18,11 @@ def undirected(array):
     Undirected graph will be a dictionary with key as node and value is a list,
     such that `i`th node will have list containing cost of edges to vertices
     starting from `i+1`.
+
+    Parameters
+    ----------
+    array : list
+        List contains unique 256 no.s in the range 0-256.
     """
     graph = {}
     for vertex in range(len(array)):
@@ -25,5 +30,3 @@ def undirected(array):
         for x in range(256 - vertex - 1):
             graph[vertex].append(randint(0, 256))
     return graph
-
-print(undirected(gen()))
