@@ -4,6 +4,24 @@ def travelling():
     pass
 
 
+def dist(i, j):
+    """
+    Returns the weight of edge from i -> j or vice-versa.
+    The graph is undirected.
+
+    Paramters
+    ---------
+    i : int
+    j : int
+    """
+    if i < j:
+        return graph[i][j-1]
+    elif j < i:
+        returb graph[j][i-1]
+    else:
+        return 0
+
+
 def cost(set_Vertices, node):
     """
     cost of the minimum cost path visiting each vertex in set S exactly once,
