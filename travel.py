@@ -1,3 +1,6 @@
+from initial import gen, undirected
+
+
 def travelling():
     """
     """
@@ -17,14 +20,14 @@ def dist(i, j):
     if i < j:
         return graph[i][j-1]
     elif j < i:
-        returb graph[j][i-1]
+        return graph[j][i-1]
     else:
         return 0
 
 
 def cost(set_Vertices, node):
     """
-    cost of the minimum cost path visiting each vertex in set S exactly once,
+    Returns cost of the minimum cost path visiting each vertex in set S exactly once,
     starting at 0 and ending at node.
 
     Paramters
@@ -36,7 +39,7 @@ def cost(set_Vertices, node):
         The vertex to which we need minimum cost.
     """
     if len(set_Vertices) == 2:
-        pass
+        return dist(0, list(set_Vertices)[1])
     else:
         pass
     pass
