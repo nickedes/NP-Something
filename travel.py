@@ -19,20 +19,20 @@ def dist(i, j):
     """
     try:
         if i < j:
-            return graph[i][j-1]
+            return graph[i][j-i-1]
         elif j < i:
-            return graph[j][i-1]
+            return graph[j][i-j-1]
         else:
             return 0
     except:
-        print(i,j)
+        print(i, j)
         return 0
 
 
 def cost(set_Vertices, node):
     """
-    Returns cost of the minimum cost path visiting each vertex in set S exactly once,
-    starting at 0 and ending at node.
+    Returns cost of the minimum cost path visiting each vertex in set
+    set_Vertices exactly once, starting at 0 and ending at node.
 
     Paramters
     ---------
@@ -45,13 +45,20 @@ def cost(set_Vertices, node):
     if len(set_Vertices) == 2:
         return dist(0, list(set_Vertices)[1])
     else:
-        pass
+        temp = []
+        for j in set_Vertices:
+            if j != node and j != 0:
+                temp.append(cost(set_Vertices-{node}, j) + dist(j, node))
+        return min(temp)
     pass
 
-"""
->>> s = set()
->>> s |= set(list(range(24)))
->>> s
-{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23}
->>> 
-"""
+
+if __name__ == '__main__':
+    array = gen()
+    graph = undirected(array)
+    # print(graph[0])
+    # print(graph[253][254-1-253])
+    # print(dist(253,254))
+    set_Vertices = set()
+    set_Vertices |= set(list(range(256)))
+    print(cost(set_Vertices, 0))
