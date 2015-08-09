@@ -17,11 +17,15 @@ def dist(i, j):
     i : int
     j : int
     """
-    if i < j:
-        return graph[i][j-1]
-    elif j < i:
-        return graph[j][i-1]
-    else:
+    try:
+        if i < j:
+            return graph[i][j-1]
+        elif j < i:
+            return graph[j][i-1]
+        else:
+            return 0
+    except:
+        print(i,j)
         return 0
 
 
