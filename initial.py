@@ -1,5 +1,6 @@
 # This helps to generate an initial S-Box.
 from random import randint
+import json
 
 
 def gen():
@@ -29,4 +30,6 @@ def undirected(array):
         graph[vertex] = []
         for x in range(256 - vertex - 1):
             graph[vertex].append(randint(0, 256))
+    with open('data.txt', 'w') as f:
+        f.write(json.dumps(array))
     return graph
