@@ -18,6 +18,7 @@ def dist(i, j):
     j : int
     """
     try:
+        i, j = i % 8, j % 8
         if i < j:
             return graph[i][j-i-1]
         elif j < i:
@@ -43,11 +44,13 @@ def cost(set_Vertices, node):
         The vertex to which we need minimum cost.
     """
     if len(set_Vertices) == 2:
-        return dist(0, list(set_Vertices)[1])
+        print(list(set_Vertices)[0], list(set_Vertices)[1])
+        return dist(list(set_Vertices)[0], list(set_Vertices)[1])
     else:
         temp = []
         for j in set_Vertices:
-            if j != node and j != 0:
+            if j != node:
+                print('here,', node, j)
                 temp.append(cost(set_Vertices-{node}, j) + dist(j, node))
         return min(temp)
     pass
@@ -55,10 +58,8 @@ def cost(set_Vertices, node):
 
 if __name__ == '__main__':
     array = gen()
-    graph = undirected(array)
-    # print(graph[0])
-    # print(graph[253][254-1-253])
-    # print(dist(253,254))
+    graph = undirected(array, 0)
     set_Vertices = set()
-    set_Vertices |= set(list(range(256)))
+    set_Vertices |= set(list(range(3)))
     print(cost(set_Vertices, 0))
+    print(graph)

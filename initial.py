@@ -13,8 +13,8 @@ def gen():
     return s
 
 
-def undirected(array):
-    """Creates an undirected graph for all the 256 nodes(elements) of the list.
+def undirected(array, num=0):
+    """Creates an undirected graph for nodes(elements) of the list.
 
     Undirected graph will be a dictionary with key as node and value is a list,
     such that `i`th node will have list containing cost of edges to vertices
@@ -24,12 +24,14 @@ def undirected(array):
     ----------
     array : list
         List contains unique 256 no.s in the range 0-256.
+    num : int
+        The nodes for the graph start from 8**num till 8**(num+1).
     """
     graph = {}
-    for vertex in range(len(array)):
-        graph[vertex] = []
-        for x in range(256 - vertex - 1):
+    for vertex in range(len(array[8**num-1:8**(num+1)])):
+        graph[vertex % 8] = []
+        for x in range(8 - (vertex % 8) - 1):
             graph[vertex].append(randint(0, 256))
-    with open('data.txt', 'w') as f:
-        f.write(json.dumps(array))
+    # with open('data.txt', 'w') as f:
+    #     f.write(json.dumps(array))
     return graph
