@@ -1,4 +1,5 @@
 from initial import gen, undirected
+from itertools import permutations as per
 
 
 def travelling():
@@ -30,7 +31,7 @@ def dist(i, j):
         return 0
 
 
-def cost(set_Vertices, node):
+def cost(set_Vertices):
     """
     Returns cost of the minimum cost path visiting each vertex in set
     set_Vertices exactly once, starting at 0 and ending at node.
@@ -43,23 +44,24 @@ def cost(set_Vertices, node):
     node : int
         The vertex to which we need minimum cost.
     """
-    if len(set_Vertices) == 2:
-        print(list(set_Vertices)[0], list(set_Vertices)[1])
-        return dist(list(set_Vertices)[0], list(set_Vertices)[1])
-    else:
-        temp = []
-        for j in set_Vertices:
-            if j != node:
-                print('here,', node, j)
-                temp.append(cost(set_Vertices-{node}, j) + dist(j, node))
-        return min(temp)
-    pass
+    cost_path = 0
+    for node in range(len(set_Vertices)-1):
+        cost_path += dist(set_Vertices[node], set_Vertices[node+1])
+    return cost_path
 
 
 if __name__ == '__main__':
     array = gen()
     graph = undirected(array, 0)
-    set_Vertices = set()
-    set_Vertices |= set(list(range(3)))
-    print(cost(set_Vertices, 0))
-    print(graph)
+    all_perms = list(per(range(8)))
+    cost_path = []
+    paths = {}
+    for perm in all_perms:
+        tupl = perm + (perm[0], )
+        if cost(tupl) not in cost_path:
+            cost_path.append(cost(tupl))
+        if cost(tupl) not in paths:
+            paths[cost(tupl)] = tupl
+    # print(paths, cost_path)
+    print(min(cost_path), paths[min(cost_path)])
+    # graph
