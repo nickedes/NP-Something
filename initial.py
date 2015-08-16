@@ -10,6 +10,8 @@ def gen():
         num = randint(0, 256)
         if num not in s:
             s.append(num)
+    with open('data.txt', 'w') as f:
+        f.write(json.dumps(s))
     return s
 
 
@@ -28,10 +30,8 @@ def undirected(array, num=0):
         The nodes for the graph start from 8**num till 8**(num+1).
     """
     graph = {}
-    for vertex in range(len(array[8**num-1:8**(num+1)])):
+    for vertex in range(len(array[8*num:8*(num+1)-1])):
         graph[vertex % 8] = []
         for x in range(8 - (vertex % 8) - 1):
-            graph[vertex].append(randint(0, 256))
-    # with open('data.txt', 'w') as f:
-    #     f.write(json.dumps(array))
+            graph[vertex % 8].append(randint(0, 256))
     return graph
