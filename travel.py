@@ -1,4 +1,5 @@
 from initial import gen, undirected
+from bijective import is_bijective
 from itertools import permutations as per
 import json
 
@@ -29,9 +30,7 @@ def dist(i, j):
             return 0
     except:
         print(i, j)
-        print(graph)
         exit()
-        return 0
 
 
 def cost(set_Vertices):
@@ -55,25 +54,28 @@ def cost(set_Vertices):
 
 if __name__ == '__main__':
     array = gen()
-    all_perms = list(per(range(8)))
-    array_mod = []
-    for num in range(32):
-        print(num)
-        graph = undirected(array, num)
-        cost_path = []
-        paths = {}
-        for perm in all_perms:
-            tupl = perm + (perm[0], )
-            path_val = cost(tupl)
-            if path_val not in cost_path:
-                cost_path.append(path_val)
-            if path_val not in paths:
-                paths[path_val] = tupl
-        # print(paths, cost_path)
-        print(min(cost_path), paths[min(cost_path)])
-        for index in paths[min(cost_path)]:
-            if array[8*num + index] not in array_mod:
-                array_mod.append(array[8*num + index])
-    with open('data2.txt', 'w') as f:
-        f.write(json.dumps(array_mod))
-    # graph
+    if is_bijective(array):
+        all_perms = list(per(range(8)))
+        array_mod = []
+        for num in range(32):
+            # print(num)
+            graph = undirected(array, num)
+            cost_path = []
+            paths = {}
+            for perm in all_perms:
+                tupl = perm + (perm[0], )
+                path_val = cost(tupl)
+                if path_val not in cost_path:
+                    cost_path.append(path_val)
+                if path_val not in paths:
+                    paths[path_val] = tupl
+            # print(paths, cost_path)
+            # print(min(cost_path), paths[min(cost_path)])
+            for index in paths[min(cost_path)]:
+                if array[8*num + index] not in array_mod:
+                    array_mod.append(array[8*num + index])
+        with open('data2.txt', 'w') as f:
+            f.write(json.dumps(array_mod))
+        # graph
+    else:
+        print('Is not bijective!')

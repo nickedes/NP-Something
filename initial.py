@@ -7,7 +7,7 @@ def gen():
     """Generates a list containing no.s below 256 only."""
     s = []
     while len(s) != 256:
-        num = randint(0, 256)
+        num = randint(0, 255)
         if num not in s:
             s.append(num)
     with open('data.txt', 'w') as f:
