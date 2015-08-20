@@ -45,7 +45,17 @@ def dist(graph, i, j):
         exit()
 
 
-def cost(set_Vertices):
+def substitution(array, array_mod, num):
+    """
+    """
+    cost_path, paths = travelling(array, num)
+    for index in paths[min(cost_path)]:
+        if array[8*num + index] not in array_mod:
+            array_mod.append(array[8*num + index])
+    return array_mod
+
+
+def cost(graph, set_Vertices):
     """
     Returns cost of the minimum cost path visiting each vertex in set
     set_Vertices exactly once, starting at 0 and ending at node.
@@ -60,34 +70,24 @@ def cost(set_Vertices):
     """
     cost_path = 0
     for node in range(len(set_Vertices)-1):
-        cost_path += dist(set_Vertices[node], set_Vertices[node+1])
+        cost_path += dist(graph, set_Vertices[node], set_Vertices[node+1])
     return cost_path
 
 
 if __name__ == '__main__':
     array = gen()
+    nn_array = nonlinearity(array)
     if is_bijective(array):
         all_perms = list(per(range(8)))
         array_mod = []
         for num in range(32):
-            # print(num)
-            graph = undirected(array, num)
-            cost_path = []
-            paths = {}
-            for perm in all_perms:
-                tupl = perm + (perm[0], )
-                path_val = cost(tupl)
-                if path_val not in cost_path:
-                    cost_path.append(path_val)
-                if path_val not in paths:
-                    paths[path_val] = tupl
-            # print(paths, cost_path)
-            # print(min(cost_path), paths[min(cost_path)])
-            for index in paths[min(cost_path)]:
-                if array[8*num + index] not in array_mod:
-                    array_mod.append(array[8*num + index])
+            array_mod = substitution(array, array_mod, num)
         with open('data2.txt', 'w') as f:
             f.write(json.dumps(array_mod))
-        # graph
+        nn_array_mod = nonlinearity(array_mod)
+        for index in range(len(nn_array_mod)):
+            if nn_array_mod[index] < nn_array[index]:
+                pass
+        print(nn_array, nn_array_mod)
     else:
         print('Is not bijective!')
