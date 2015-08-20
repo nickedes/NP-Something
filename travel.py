@@ -1,16 +1,27 @@
 from initial import gen, undirected
 from bijective import is_bijective
 from itertools import permutations as per
+from test import nonlinearity
 import json
 
 
-def travelling():
+def travelling(array, num):
     """
     """
-    pass
+    graph = undirected(array, num)
+    cost_path = []
+    paths = {}
+    for perm in all_perms:
+        tupl = perm + (perm[0], )
+        path_val = cost(graph, tupl)
+        if path_val not in cost_path:
+            cost_path.append(path_val)
+        if path_val not in paths:
+            paths[path_val] = tupl
+    return cost_path, paths
 
 
-def dist(i, j):
+def dist(graph, i, j):
     """
     Returns the weight of edge from i -> j or vice-versa.
     The graph is undirected.
@@ -19,6 +30,7 @@ def dist(i, j):
     ---------
     i : int
     j : int
+    graph : Dict
     """
     try:
         i, j = i % 8, j % 8
