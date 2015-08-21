@@ -2,7 +2,16 @@ from initial import gen, undirected
 from bijective import is_bijective
 from itertools import permutations as per
 from test import nonlinearity
+from datetime import datetime
 import json
+
+
+def getfilename():
+    """
+    Returns the current timestamp and will be used as filename. 
+    """
+    timestamp = str(datetime.now())[:-7]
+    return timestamp.replace(' ', '-')
 
 
 def travelling(array, num):
@@ -101,6 +110,6 @@ if __name__ == '__main__':
                     non_sbox[sum(nn_array_mod)/8] = array_mod
         else:
             print('Is not bijective!')
-    with open('data2.txt', 'w') as f:
+    with open('data/'+getfilename(), 'w') as f:
         f.write(json.dumps(non_sbox))
     print(non_sbox.keys(), max(non_sbox.keys()))
