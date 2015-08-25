@@ -94,20 +94,7 @@ if __name__ == '__main__':
             array_mod = []
             for num in range(32):
                 array_mod = substitution(array, array_mod, num)
-            with open('data2.txt', 'w') as f:
-                f.write(json.dumps(array_mod))
             nn_array_mod = nonlinearity(array_mod)
-            for num in range(16):
-                if sum(nn_array)/8 > sum(nn_array_mod)/8:
-                    for index in range(len(nn_array_mod)):
-                        if nn_array_mod[index] < nn_array[index]:
-                            # print(nn_array[index], nn_array_mod[index])
-                            array_mod = substitution(array, array_mod, index)
-                    nn_array_mod = nonlinearity(array_mod)
-            print(sum(nn_array)/8, sum(nn_array_mod)/8)
-            if sum(nn_array)/8 < sum(nn_array_mod)/8:
-                if sum(nn_array_mod)/8 not in non_sbox:
-                    non_sbox[sum(nn_array_mod)/8] = array_mod
         else:
             print('Is not bijective!')
     with open('data/'+getfilename(), 'w') as f:
