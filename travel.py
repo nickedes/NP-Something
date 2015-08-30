@@ -5,6 +5,8 @@ from test import nonlinearity
 from datetime import datetime
 import json
 
+global graph
+
 
 def getfilename():
     """
@@ -17,6 +19,7 @@ def getfilename():
 def travelling(array, num):
     """
     """
+    global graph
     graph = undirected(array, num)
     cost_path = []
     paths = {}
@@ -57,6 +60,7 @@ def dist(graph, i, j):
 def substitution(array, array_mod, num):
     """
     """
+
     cost_path, paths = travelling(array, num)
     for index in paths[min(cost_path)]:
         if array[8*num + index] not in array_mod:
@@ -85,7 +89,8 @@ def cost(graph, set_Vertices):
 
 if __name__ == '__main__':
     non_sbox = {}
-    for var in range(32):
+    graphs = []
+    for var in range(64):
         print(var)
         array = gen()
         nn_array = nonlinearity(array)
@@ -94,9 +99,13 @@ if __name__ == '__main__':
             array_mod = []
             for num in range(32):
                 array_mod = substitution(array, array_mod, num)
-            nn_array_mod = nonlinearity(array_mod)
+                graphs.append(graph)
+            nn_array_mod = int(sum(nonlinearity(array_mod))/8)
+            non_sbox[nn_array_mod] = [array_mod, graphs]
+            print(sum(nn_array)/8, nn_array_mod)
         else:
             print('Is not bijective!')
-    with open('data/'+getfilename(), 'w') as f:
+    with open('data/'+getfilename(), 'a') as f:
+        f.write(json.dumps(array_mod))
         f.write(json.dumps(non_sbox))
     print(non_sbox.keys(), max(non_sbox.keys()))
