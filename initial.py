@@ -6,47 +6,49 @@ from test import nonlinearity
 def gen():
     """Generates a list containing no.s below 256 only."""
 
-    while len(s) != 256:
-        num = randint(0, 255)
-        if num not in s:
-            s.append(num)
-    return s
-    non = {}
-    for i in range(1, 10):
-        for j in range(1, 10):
-            s = []
-            if j == 5 or i == j or (j == 4 and i == 1):
-                continue
-            x, p = i/10, j/10
-            for k in range(1000):
-                x = pwlcm(x, p)
-
-            while len(s) != 256:
-                x = pwlcm(x, p)
-                val = int(x*10**5) % 256
-                if val not in s:
-                    s.append(val)
-            # print (i)
-            # print (j)
-            non[sum(nonlinearity(s))/8] = [i, j]
-            # print(sum(nonlinearity(s))/8)
-    print(non)
-    print (max(non.keys()))
-    return s
-
-    # s = []
-    # x, p = 0.1, 0.9
-    # for k in range(1000):
-    #     x = pwlcm(x, p)
-
     # while len(s) != 256:
-    #     x = pwlcm(x, p)
-    #     val = int(x*10**5) % 256
-    #     if val not in s:
-    #         s.append(val)
-    # print(sum(nonlinearity(s))/8)
-
+    #     num = randint(0, 255)
+    #     if num not in s:
+    #         s.append(num)
     # return s
+
+    # Gen with PWLCM
+    # non = {}
+    # s = []
+    # for i in range(1, 10):
+    #     for j in range(1, 10):
+    #         s = []
+    #         if j == 5 or i == j or (j == 4 and i == 1):
+    #             continue
+    #         x, p = i/10, j/10
+    #         for k in range(1000):
+    #             x = pwlcm(x, p)
+
+    #         while len(s) != 256:
+    #             x = pwlcm(x, p)
+    #             val = int(x*10**5) % 256
+    #             if val not in s:
+    #                 s.append(val)
+    #         # print (i)
+    #         # print (j)
+    #         non[sum(nonlinearity(s))/8] = [i, j]
+    #         # print(sum(nonlinearity(s))/8)
+    # print(non)
+    # return s
+
+    s = []
+    x, p = 0.8, 0.6
+    for k in range(1000):
+        x = pwlcm(x, p)
+
+    while len(s) != 256:
+        x = pwlcm(x, p)
+        val = int(x*10**5) % 256
+        if val not in s:
+            s.append(val)
+    print(sum(nonlinearity(s))/8)
+
+    return s
 
 
 def pwlcm(x, p):
