@@ -1,16 +1,14 @@
 from initial import gen, undirected
 from bijective import is_bijective
 from itertools import permutations as per
-from test import nonlinearity
+from test import nonlinearity, value_nonl
 from datetime import datetime
-import json
-
-global graph
+from json import dumps
 
 
 def getfilename():
     """
-    Returns the current timestamp and will be used as filename. 
+    Returns the current timestamp and will be used as filename.
     """
     timestamp = str(datetime.now())[:-7]
     return timestamp.replace(' ', '-')
@@ -19,7 +17,6 @@ def getfilename():
 def travelling(array, num):
     """
     """
-    global graph
     graph = undirected(array, num)
     cost_path = []
     paths = {}
@@ -90,7 +87,8 @@ def cost(graph, set_Vertices):
 if __name__ == '__main__':
     non_sbox = {}
     graphs = []
-    for var in range(32):
+    graph = {}
+    for var in range(64):
         print(var)
         array = gen()
         nn_array = nonlinearity(array)
@@ -105,7 +103,9 @@ if __name__ == '__main__':
             print(sum(nn_array)/8, nn_array_mod)
         else:
             print('Is not bijective!')
-    with open('data/'+getfilename(), 'a') as f:
-        f.write(json.dumps(array_mod))
-        f.write(json.dumps(non_sbox))
+    if max(non_sbox) > value_nonl(gen()):
+        with open('data/'+getfilename(), 'a') as f:
+            f.write(dumps(array_mod))
+            f.write(dumps(non_sbox))
+    # print(array_mod)
     print(non_sbox.keys(), max(non_sbox.keys()))
