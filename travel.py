@@ -90,7 +90,7 @@ def cost(graph, set_Vertices):
 if __name__ == '__main__':
     non_sbox = {}
     graphs = []
-    for var in range(100):
+    for var in range(32):
         print(var)
         array = gen()
         nn_array = nonlinearity(array)

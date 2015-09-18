@@ -37,7 +37,7 @@ def gen():
     # return s
 
     s = []
-    x, p = 0.8, 0.6
+    x, p = 0.1, 0.9
     for k in range(1000):
         x = pwlcm(x, p)
 
