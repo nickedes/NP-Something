@@ -90,11 +90,11 @@ if __name__ == '__main__':
     graphs = []
     initial_non = value_nonl(gen())
     non_sbox = {initial_non: gen()}
-    for var in range(64):
-        print(var)
-        array = gen()
-        if is_bijective(array):
-            all_perms = list(per(range(8)))
+    all_perms = list(per(range(8)))
+    array = gen()
+    if is_bijective(array):
+        for var in range(64):
+            print(var)
             array_mod = []
             for num in range(32):
                 array_mod, graph = substitution(all_perms, array, array_mod, num)
@@ -103,8 +103,8 @@ if __name__ == '__main__':
             if nn_array_mod > limit:
                 non_sbox[nn_array_mod] = [array_mod, graphs]
                 print(value_nonl(array), nn_array_mod)
-        else:
-            print('Is not bijective!')
+    else:
+        print('Is not bijective!')
     if max(non_sbox) > limit:
         with open('data/part-1/'+getfilename(), 'a') as f:
             f.write(dumps(non_sbox))
