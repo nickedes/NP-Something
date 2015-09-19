@@ -6,12 +6,6 @@ from test import nonlinearity
 def gen():
     """Generates a list containing no.s below 256 only."""
 
-    # while len(s) != 256:
-    #     num = randint(0, 255)
-    #     if num not in s:
-    #         s.append(num)
-    # return s
-
     # Gen with PWLCM
     # non = {}
     # s = []
@@ -46,7 +40,6 @@ def gen():
         val = int(x*10**5) % 256
         if val not in s:
             s.append(val)
-    print(sum(nonlinearity(s))/8)
 
     return s
 
@@ -84,5 +77,3 @@ def undirected(array, num=0):
         for x in range(8 - (vertex % 8) - 1):
             graph[vertex % 8].append(randint(1, 255))
     return graph
-
-print(gen())
