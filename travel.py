@@ -88,8 +88,8 @@ def cost(graph, set_Vertices):
 if __name__ == '__main__':
     graphs = []
     initial_non = value_nonl(gen())
-    non_sbox = {initial_non : gen()}
-    for var in range(2):
+    non_sbox = {initial_non: gen()}
+    for var in range(64):
         print(var)
         array = gen()
         nn_array = nonlinearity(array)
@@ -107,7 +107,6 @@ if __name__ == '__main__':
             print('Is not bijective!')
     if max(non_sbox) > initial_non:
         with open('data/'+getfilename(), 'a') as f:
-            f.write(dumps(array_mod))
             f.write(dumps(non_sbox))
     # print(array_mod)
     print(non_sbox.keys(), max(non_sbox.keys()))

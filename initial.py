@@ -1,6 +1,5 @@
 # This helps to generate an initial S-Box.
 from random import randint
-from test import nonlinearity
 
 
 def gen():
