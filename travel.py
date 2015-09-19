@@ -15,7 +15,7 @@ def getfilename():
     return timestamp.replace(' ', '-')
 
 
-def travelling(array, num):
+def travelling(all_perms, array, num):
     """
     """
     global graph
@@ -29,7 +29,7 @@ def travelling(array, num):
             cost_path.append(path_val)
         if path_val not in paths:
             paths[path_val] = tupl
-    return cost_path, paths
+    return cost_path, paths, graph
 
 
 def dist(graph, i, j):
@@ -56,15 +56,15 @@ def dist(graph, i, j):
         exit()
 
 
-def substitution(array, array_mod, num):
+def substitution(all_perms, array, array_mod, num):
     """
     """
 
-    cost_path, paths = travelling(array, num)
+    cost_path, paths, graph = travelling(all_perms, array, num)
     for index in paths[min(cost_path)]:
         if array[8*num + index] not in array_mod:
             array_mod.append(array[8*num + index])
-    return array_mod
+    return array_mod, graph
 
 
 def cost(graph, set_Vertices):
@@ -97,7 +97,7 @@ if __name__ == '__main__':
             all_perms = list(per(range(8)))
             array_mod = []
             for num in range(32):
-                array_mod = substitution(array, array_mod, num)
+                array_mod, graph = substitution(all_perms, array, array_mod, num)
                 graphs.append(graph)
             nn_array_mod = value_nonl(array_mod)
             if nn_array_mod > limit:
