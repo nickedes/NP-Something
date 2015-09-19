@@ -17,6 +17,7 @@ def getfilename():
 def travelling(array, num):
     """
     """
+    global graph
     graph = undirected(array, num)
     cost_path = []
     paths = {}
@@ -85,10 +86,10 @@ def cost(graph, set_Vertices):
 
 
 if __name__ == '__main__':
-    non_sbox = {}
     graphs = []
-    graph = {}
-    for var in range(64):
+    initial_non = value_nonl(gen())
+    non_sbox = {initial_non : gen()}
+    for var in range(2):
         print(var)
         array = gen()
         nn_array = nonlinearity(array)
@@ -98,12 +99,13 @@ if __name__ == '__main__':
             for num in range(32):
                 array_mod = substitution(array, array_mod, num)
                 graphs.append(graph)
-            nn_array_mod = int(sum(nonlinearity(array_mod))/8)
-            non_sbox[nn_array_mod] = [array_mod, graphs]
-            print(sum(nn_array)/8, nn_array_mod)
+            nn_array_mod = value_nonl(array_mod)
+            if nn_array_mod > initial_non:
+                non_sbox[nn_array_mod] = [array_mod, graphs]
+                print(sum(nn_array)/8, nn_array_mod)
         else:
             print('Is not bijective!')
-    if max(non_sbox) > value_nonl(gen()):
+    if max(non_sbox) > initial_non:
         with open('data/'+getfilename(), 'a') as f:
             f.write(dumps(array_mod))
             f.write(dumps(non_sbox))
