@@ -1,16 +1,18 @@
 # Der's more to travelling baby!
 from data import sbox
-from bijective import is_bijective
-from itertools import permutations as per
-from test import value_nonl
-from data import limit
-from travel import substitution
+from travel import (
+    substitution,
+    getfilename,
+    limit,
+    value_nonl,
+    per,
+    is_bijective
+    )
 
 
 def more_travel(array):
     """
     """
-    non_sbox = {}
     if is_bijective(array):
         all_perms = list(per(range(8)))
         array_mod = []
@@ -23,11 +25,14 @@ def more_travel(array):
         print(value_nonl(array), nn_array_mod)
     else:
         print('Is not bijective!')
-    return non_sbox
+    return array
 
-# if max(non_sbox) > limit:
-#         with open('data/part-1/'+getfilename(), 'a') as f:
-#             f.write(dumps(non_sbox))
-#     print(non_sbox.keys(), max(non_sbox.keys()))
-graphs = []
-print(more_travel(sbox))
+
+if __name__ == '__main__':
+    graphs = []
+    non_sbox = {value_nonl(sbox): sbox}
+    if max(non_sbox) > limit:
+            with open('data/part-2/'+getfilename(), 'a') as f:
+                f.write(dumps(non_sbox))
+        print(non_sbox.keys(), max(non_sbox.keys()))
+    print(max(non_sbox))
