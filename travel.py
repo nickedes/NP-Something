@@ -1,7 +1,7 @@
 from initial import gen, undirected
 from bijective import is_bijective
 from itertools import permutations as per
-from test import nonlinearity, value_nonl
+from test import value_nonl
 from datetime import datetime
 from json import dumps
 from data import limit
