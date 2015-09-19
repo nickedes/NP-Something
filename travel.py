@@ -93,7 +93,6 @@ if __name__ == '__main__':
     for var in range(64):
         print(var)
         array = gen()
-        nn_array = nonlinearity(array)
         if is_bijective(array):
             all_perms = list(per(range(8)))
             array_mod = []
@@ -103,11 +102,10 @@ if __name__ == '__main__':
             nn_array_mod = value_nonl(array_mod)
             if nn_array_mod > limit:
                 non_sbox[nn_array_mod] = [array_mod, graphs]
-                print(sum(nn_array)/8, nn_array_mod)
+                print(value_nonl(array), nn_array_mod)
         else:
             print('Is not bijective!')
     if max(non_sbox) > limit:
-        with open('data/'+getfilename(), 'a') as f:
+        with open('data/part-1/'+getfilename(), 'a') as f:
             f.write(dumps(non_sbox))
-    # print(array_mod)
     print(non_sbox.keys(), max(non_sbox.keys()))
