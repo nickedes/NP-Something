@@ -90,7 +90,7 @@ if __name__ == '__main__':
     graphs = []
     initial_non = value_nonl(gen())
     non_sbox = {initial_non: gen()}
-    for var in range(200):
+    for var in range(64):
         print(var)
         array = gen()
         nn_array = nonlinearity(array)
