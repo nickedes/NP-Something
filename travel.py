@@ -4,6 +4,7 @@ from itertools import permutations as per
 from test import nonlinearity, value_nonl
 from datetime import datetime
 from json import dumps
+from data import limit
 
 
 def getfilename():
@@ -89,7 +90,7 @@ if __name__ == '__main__':
     graphs = []
     initial_non = value_nonl(gen())
     non_sbox = {initial_non: gen()}
-    for var in range(64):
+    for var in range(200):
         print(var)
         array = gen()
         nn_array = nonlinearity(array)
@@ -100,12 +101,12 @@ if __name__ == '__main__':
                 array_mod = substitution(array, array_mod, num)
                 graphs.append(graph)
             nn_array_mod = value_nonl(array_mod)
-            if nn_array_mod > initial_non:
+            if nn_array_mod > limit:
                 non_sbox[nn_array_mod] = [array_mod, graphs]
                 print(sum(nn_array)/8, nn_array_mod)
         else:
             print('Is not bijective!')
-    if max(non_sbox) > initial_non:
+    if max(non_sbox) > limit:
         with open('data/'+getfilename(), 'a') as f:
             f.write(dumps(non_sbox))
     # print(array_mod)
