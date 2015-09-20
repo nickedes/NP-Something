@@ -32,6 +32,13 @@ def more_travel(array):
     return 1
 
 
+def graphy():
+    """
+    Gives an undirected graph for the 8 vertices.
+    """
+    pass
+
+
 def selected_travel(array):
     """
     """
@@ -41,7 +48,12 @@ def selected_travel(array):
     indices = {}
     for node in nodes:
         indices[node] = array.index(node)
-    return indices
+
+    maps, num = {}, 0
+    for node in indices:
+        maps[num] = node
+        num += 1
+    return maps
 
 if __name__ == '__main__':
     graphs = []
