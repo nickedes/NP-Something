@@ -1,5 +1,6 @@
 # Der's more to travelling baby!
 from data import sbox
+from random import randint
 from travel import (
     substitution,
     getfilename,
@@ -7,7 +8,8 @@ from travel import (
     value_nonl,
     per,
     is_bijective,
-    dumps
+    dumps,
+    cost
 )
 
 
@@ -36,7 +38,28 @@ def graphy():
     """
     Gives an undirected graph for the 8 vertices.
     """
-    pass
+    graph = {}
+    for vertex in range(8):
+        graph[vertex] = []
+        for x in range(8 - vertex - 1):
+            graph[vertex].append(randint(1, 255))
+    return graph
+
+
+def travelling(all_perms):
+    """
+    """
+    graph = graphy()
+    cost_path = []
+    paths = {}
+    for perm in all_perms:
+        tupl = perm + (perm[0], )
+        path_val = cost(graph, tupl)
+        if path_val not in cost_path:
+            cost_path.append(path_val)
+        if path_val not in paths:
+            paths[path_val] = tupl
+    return cost_path, paths
 
 
 def selected_travel(array):
@@ -47,12 +70,19 @@ def selected_travel(array):
     # get indices of all the above nodes
     indices = {}
     for node in nodes:
-        indices[node] = array.index(node)
-
+        indices[array.index(node)] = node
+    # list_indicies = list(indices.keys())
     maps, num = {}, 0
     for node in indices:
         maps[num] = node
         num += 1
+    all_perms = list(per(range(8)))
+    cost_path, paths = travelling(all_perms)
+    min_path = paths[min(cost_path)]
+    new_mapping = {}
+    for num in range(len(min_path) - 1):
+        new_mapping[maps[num]] = indices[maps[num]]
+    print(new_mapping)
     return maps
 
 if __name__ == '__main__':
@@ -63,4 +93,4 @@ if __name__ == '__main__':
     #     with open('data/part-2/'+getfilename(), 'a') as f:
     #         f.write(dumps(non_sbox))
     print(selected_travel(sbox))
-    print(non_sbox.keys(), max(non_sbox.keys()))
+    # print(non_sbox.keys(), max(non_sbox.keys()))
