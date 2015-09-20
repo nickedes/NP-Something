@@ -59,7 +59,7 @@ def travelling(all_perms):
             cost_path.append(path_val)
         if path_val not in paths:
             paths[path_val] = tupl
-    return cost_path, paths
+    return cost_path, paths, graph
 
 
 def selected_travel(array):
@@ -76,26 +76,26 @@ def selected_travel(array):
         maps[num] = node
         num += 1
     all_perms = list(per(range(8)))
-    cost_path, paths = travelling(all_perms)
+    cost_path, paths, graph = travelling(all_perms)
     min_path = paths[min(cost_path)]
     new_mapping = {}
     for num in range(len(min_path) - 1):
-        new_mapping[indices[maps[num]]] = maps[min_path[num]]
-    print(new_mapping, indices)
+        new_mapping[maps[num]] = indices[maps[min_path[num]]]
+    # print(new_mapping, indices)
     # Substitute! the sequence
     for node in new_mapping:
         array[node] = new_mapping[node]
-    return array
+    return array, graph
 
 if __name__ == '__main__':
     graphs = []
     non_sbox = {value_nonl(sbox): sbox}
-    for var in range(64):
-        print(var)
-        sbox_mod = selected_travel(sbox)
+    for var in range(200):
+        sbox_mod, graph = selected_travel(sbox)
+        print(var, value_nonl(sbox_mod), is_bijective(sbox_mod))
         if value_nonl(sbox_mod) > limit:
-            non_sbox[value_nonl(sbox_mod)] = sbox_mod
-    # if max(non_sbox) > limit:
-    #     with open('data/part-2/'+getfilename(), 'a') as f:
-    #         f.write(dumps(non_sbox))
-    # print(non_sbox.keys(), max(non_sbox.keys()))
+            non_sbox[value_nonl(sbox_mod)] = [sbox_mod, graph]
+    if max(non_sbox) > limit:
+        with open('data/part-2/'+getfilename(), 'a') as f:
+            f.write(dumps(non_sbox))
+    print(non_sbox.keys(), max(non_sbox.keys()))

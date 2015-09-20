@@ -97,7 +97,8 @@ if __name__ == '__main__':
             print(var)
             array_mod = []
             for num in range(32):
-                array_mod, graph = substitution(all_perms, array, array_mod, num)
+                array_mod, graph = substitution(
+                    all_perms, array, array_mod, num)
                 graphs.append(graph)
             nn_array_mod = value_nonl(array_mod)
             if nn_array_mod > limit:
