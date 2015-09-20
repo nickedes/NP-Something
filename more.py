@@ -71,7 +71,6 @@ def selected_travel(array):
     indices = {}
     for node in nodes:
         indices[array.index(node)] = node
-    # list_indicies = list(indices.keys())
     maps, num = {}, 0
     for node in indices:
         maps[num] = node
@@ -81,16 +80,22 @@ def selected_travel(array):
     min_path = paths[min(cost_path)]
     new_mapping = {}
     for num in range(len(min_path) - 1):
-        new_mapping[maps[num]] = indices[maps[num]]
-    print(new_mapping)
-    return maps
+        new_mapping[indices[maps[num]]] = maps[min_path[num]]
+    print(new_mapping, indices)
+    # Substitute! the sequence
+    for node in new_mapping:
+        array[node] = new_mapping[node]
+    return array
 
 if __name__ == '__main__':
     graphs = []
     non_sbox = {value_nonl(sbox): sbox}
-    # more_travel(sbox)
+    for var in range(64):
+        print(var)
+        sbox_mod = selected_travel(sbox)
+        if value_nonl(sbox_mod) > limit:
+            non_sbox[value_nonl(sbox_mod)] = sbox_mod
     # if max(non_sbox) > limit:
     #     with open('data/part-2/'+getfilename(), 'a') as f:
     #         f.write(dumps(non_sbox))
-    print(selected_travel(sbox))
     # print(non_sbox.keys(), max(non_sbox.keys()))
