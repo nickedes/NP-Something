@@ -42,7 +42,10 @@ def graphy():
     for vertex in range(8):
         graph[vertex] = []
         for x in range(8 - vertex - 1):
-            graph[vertex].append(randint(1, 255))
+            temp = randint(1, 255)
+            # while temp % 2 != 0 :
+            #     temp = randint(1, 255)
+            graph[vertex].append(temp)
     return graph
 
 
@@ -62,11 +65,9 @@ def travelling(all_perms):
     return cost_path, paths, graph
 
 
-def selected_travel(array):
+def selected_travel(array, nodes):
     """
     """
-    # select 8 max nodes
-    nodes = list(range(255, 247, -1))
     # get indices of all the above nodes
     indices = {}
     for node in nodes:
@@ -90,8 +91,12 @@ def selected_travel(array):
 if __name__ == '__main__':
     graphs = []
     non_sbox = {value_nonl(sbox): sbox}
-    for var in range(200):
-        sbox_mod, graph = selected_travel(sbox)
+    for var in range(1000):
+        # select 8 max nodes
+        # nodes = list(range(255, 247, -1))
+        # select 8 min
+        nodes = list(range(0, 8, 1))
+        sbox_mod, graph = selected_travel(sbox, nodes)
         print(var, value_nonl(sbox_mod), is_bijective(sbox_mod))
         if value_nonl(sbox_mod) > limit:
             non_sbox[value_nonl(sbox_mod)] = [sbox_mod, graph]
