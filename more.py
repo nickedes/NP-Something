@@ -65,11 +65,13 @@ def travelling(all_perms):
     return cost_path, paths, graph
 
 
-def selected_travel(array, nodes):
+def selected_travel(nodes):
     """
     """
-    # get indices of all the above nodes
+    # PHEW! Bug fix!!!!!
+    array = list(sbox)
     indices = {}
+    # get indices of all the above nodes
     for node in nodes:
         indices[array.index(node)] = node
     maps, num = {}, 0
@@ -82,7 +84,6 @@ def selected_travel(array, nodes):
     new_mapping = {}
     for num in range(len(min_path) - 1):
         new_mapping[maps[num]] = indices[maps[min_path[num]]]
-    # print(new_mapping, indices)
     # Substitute! the sequence
     for node in new_mapping:
         array[node] = new_mapping[node]
@@ -91,13 +92,14 @@ def selected_travel(array, nodes):
 if __name__ == '__main__':
     graphs = []
     non_sbox = {value_nonl(sbox): sbox}
-    for var in range(1000):
-        # select 8 max nodes
-        # nodes = list(range(255, 247, -1))
-        # select 8 min
-        nodes = list(range(0, 8, 1))
-        sbox_mod, graph = selected_travel(sbox, nodes)
-        print(var, value_nonl(sbox_mod), is_bijective(sbox_mod))
+    # 8 middle nodes
+    # nodes = list(range(200, 192, -1))
+    # select 8 max nodes
+    nodes = list(range(255, 247, -1))
+    for var in range(2000):
+        sbox_mod, graph = [], {}
+        sbox_mod, graph = selected_travel(nodes)
+        print(value_nonl(sbox_mod))
         if value_nonl(sbox_mod) > limit:
             non_sbox[value_nonl(sbox_mod)] = [sbox_mod, graph]
     if max(non_sbox) > limit:
