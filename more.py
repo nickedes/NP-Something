@@ -43,8 +43,6 @@ def graphy():
         graph[vertex] = []
         for x in range(8 - vertex - 1):
             temp = randint(1, 255)
-            # while temp % 2 != 0 :
-            #     temp = randint(1, 255)
             graph[vertex].append(temp)
     return graph
 
@@ -92,10 +90,10 @@ def selected_travel(nodes):
 if __name__ == '__main__':
     graphs = []
     non_sbox = {value_nonl(sbox): sbox}
-    # 8 middle nodes
-    # nodes = list(range(200, 192, -1))
     # select 8 max nodes
     nodes = list(range(255, 247, -1))
+    # select 8 min nodes
+    nodes = list(range(0, 8, 1))
     for var in range(2000):
         sbox_mod, graph = [], {}
         sbox_mod, graph = selected_travel(nodes)
