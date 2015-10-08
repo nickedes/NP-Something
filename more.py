@@ -91,9 +91,11 @@ if __name__ == '__main__':
     graphs = []
     non_sbox = {value_nonl(sbox): sbox}
     # select 8 max nodes
-    nodes = list(range(255, 247, -1))
+    # nodes = list(range(255, 247, -1))
     # select 8 min nodes
-    nodes = list(range(0, 8, 1))
+    # nodes = list(range(0, 8, 1))
+    # select 8 mid nodes
+    nodes = list(range(155, 147, -1))
     for var in range(2000):
         sbox_mod, graph = [], {}
         sbox_mod, graph = selected_travel(nodes)
