@@ -11,6 +11,7 @@ from travel import (
     dumps,
     cost
 )
+from time import time
 
 
 def more_travel(array):
@@ -88,16 +89,18 @@ def selected_travel(nodes):
     return array, graph
 
 if __name__ == '__main__':
+    # We start Preti!
+    start = time()
     graphs = []
     non_sbox = {value_nonl(sbox): sbox}
     # select 8 max nodes
-    # nodes = list(range(255, 247, -1))
+    nodes = list(range(255, 247, -1))
     # select 8 mid nodes
-    nodes = list(range(165, 157, -1))
+    # nodes = list(range(165, 157, -1))
     for var in range(2000):
         sbox_mod, graph = [], {}
         sbox_mod, graph = selected_travel(nodes)
-        print(value_nonl(sbox_mod))
+        print(value_nonl(sbox_mod), max(non_sbox), round(time()-start))
         if value_nonl(sbox_mod) > limit:
             non_sbox[value_nonl(sbox_mod)] = [sbox_mod, graph]
     if max(non_sbox) > limit:
