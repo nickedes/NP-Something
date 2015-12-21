@@ -1,5 +1,6 @@
 # This helps to generate an initial S-Box.
 from random import randint
+# from data import sbox
 
 
 def gen():
@@ -76,3 +77,31 @@ def undirected(array, num=0):
         for x in range(8 - (vertex % 8) - 1):
             graph[vertex % 8].append(randint(1, 255))
     return graph
+
+
+def pretty(sbox):
+    """ Return a pretty printed SBox. """
+
+    # List of Columns
+    p = '\nS-BOX  '
+    for i in range(16):
+        p += '%02x' % i + '  '
+    p += '\n'
+
+    for i in range(70):
+        p += '-'
+    p += '\n'
+
+    # Row
+    for i in range(16):
+        p += '%02x' % i + '  |  '
+
+        # Entries
+        for j in range(16):
+            p += '%02x' % sbox[16*i+j] + '  '
+        p += '\n'
+
+    return p.upper()
+
+print("Initial Sbox is : ")
+print(pretty(gen()))
