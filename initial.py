@@ -1,6 +1,8 @@
 # This helps to generate an initial S-Box.
 from random import randint
 # from data import sbox
+from bijective import is_bijective
+from test import value_nonl
 
 
 def gen():
@@ -103,5 +105,11 @@ def pretty(sbox):
 
     return p.upper()
 
-print("Initial Sbox is : ")
-print(pretty(gen()))
+
+if __name__ == "__main__":
+    print("Initial Sbox is : ")
+    print(pretty(gen()))
+
+    print("Is initial Sbox bijective:", is_bijective(gen()))
+
+    print("Nonlinearity of  Initial Sbox:", value_nonl(gen()))

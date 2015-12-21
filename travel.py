@@ -4,7 +4,7 @@ from itertools import permutations as per
 from test import value_nonl
 from datetime import datetime
 from json import dumps
-from data import limit
+from data import limit1
 
 
 def getfilename():
@@ -89,21 +89,22 @@ def cost(graph, set_Vertices):
 if __name__ == '__main__':
     graphs = []
     initial_non = value_nonl(gen())
+    # dict conatining sbox
     non_sbox = {initial_non: gen()}
     all_perms = list(per(range(8)))
     array = gen()
     if is_bijective(array):
-        for var in range(64):
-            print(var)
+        for var in range(10):
             array_mod = []
             for num in range(32):
                 array_mod, graph = substitution(
                     all_perms, array, array_mod, num)
                 graphs.append(graph)
+            # calculate non-linearity of modified Sbox
             nn_array_mod = value_nonl(array_mod)
-            if nn_array_mod > limit:
+            if nn_array_mod > limit1:
                 non_sbox[nn_array_mod] = [array_mod, graphs]
-                print(value_nonl(array), nn_array_mod)
+            print(var, value_nonl(array), nn_array_mod)
     else:
         print('Is not bijective!')
     if max(non_sbox) > limit:

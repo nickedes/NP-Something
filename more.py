@@ -1,10 +1,9 @@
 # Der's more to travelling baby!
-from data import sbox
+from data import sbox, limit
 from random import randint
 from travel import (
     substitution,
     getfilename,
-    limit,
     value_nonl,
     per,
     is_bijective,
@@ -97,12 +96,15 @@ if __name__ == '__main__':
     nodes = list(range(255, 247, -1))
     # select 8 mid nodes
     # nodes = list(range(165, 157, -1))
-    for var in range(2000):
+    print("observed", "expected")
+    for var in range(50):
         sbox_mod, graph = [], {}
         sbox_mod, graph = selected_travel(nodes)
-        print(value_nonl(sbox_mod), max(non_sbox), round(time()-start))
+        # print(value_nonl(sbox_mod), max(non_sbox), round(time()-start))
+        print(value_nonl(sbox_mod), "  ", max(non_sbox))
         if value_nonl(sbox_mod) > limit:
             non_sbox[value_nonl(sbox_mod)] = [sbox_mod, graph]
+        print()
     if max(non_sbox) > limit:
         with open('data/part-2/'+getfilename(), 'a') as f:
             f.write(dumps(non_sbox))
