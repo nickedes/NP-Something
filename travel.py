@@ -4,7 +4,7 @@ from itertools import permutations as per
 from test import value_nonl
 from datetime import datetime
 from json import dumps
-from data import limit1
+from data import limit1, limit
 
 
 def getfilename():

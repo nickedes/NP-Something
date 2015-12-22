@@ -10,6 +10,7 @@ from travel import (
     dumps,
     cost
 )
+from initial import pretty
 from time import time
 
 
@@ -109,3 +110,5 @@ if __name__ == '__main__':
         with open('data/part-2/'+getfilename(), 'a') as f:
             f.write(dumps(non_sbox))
     print(non_sbox.keys(), max(non_sbox.keys()))
+    print(pretty(sbox))
+    print("Nonlinearity of Sbox ", value_nonl(sbox))

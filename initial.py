@@ -113,3 +113,4 @@ if __name__ == "__main__":
     print("Is initial Sbox bijective:", is_bijective(gen()))
 
     print("Nonlinearity of  Initial Sbox:", value_nonl(gen()))
+    
